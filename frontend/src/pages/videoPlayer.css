@@ -1,0 +1,29 @@
+.video-container {
+ display: flex;
+ flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  background-color: #a3a1a1;
+}
+
+.video-title{
+    
+    color: black;
+    margin-bottom: 5rem;
+   
+}
+.video{
+  display: flex;
+}
+
+.video-player{
+   width: 80%;
+  max-width: 800px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.all-videos{
+  max-width: 30% ;
+}
