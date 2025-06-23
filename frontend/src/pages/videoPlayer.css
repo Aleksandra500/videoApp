@@ -1,29 +1,40 @@
 .video-container {
- display: flex;
- flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; 
+  height: 100vh;
   background-color: #a3a1a1;
-}
-
-.video-title{
-    
-    color: black;
-    margin-bottom: 5rem;
-   
-}
-.video{
   display: flex;
+  flex-direction: column;
+  padding: 20px;
 }
 
-.video-player{
-   width: 80%;
-  max-width: 800px;
+.video-title {
+  color: black;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.video {
+  display: flex;
+  justify-content: center; /* centriraj video i listu horizontalno */
+  align-items: flex-start; /* poravnaj po vrhu */
+  gap: 20px;
+  flex: 1; /* da zauzme sav preostali prostor */
+}
+
+.video-player {
+  flex-grow: 1;
+  max-width: 900px;
+  min-width: 800px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: black; /* da se vidi prostor playera */
 }
 
-.all-videos{
-  max-width: 30% ;
+.all-videos {
+  width: 30%;
+  max-width: 300px;
+  overflow-y: auto;
+  height:auto
+  /* border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box; */
 }

@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const streamRoutes = require('./routes/streamRoutes')
+const getAllRoutes = require('./routes/getAllRoutes')
 const db = require('./db');
 require('dotenv').config();
 
@@ -18,6 +19,7 @@ app.use((req, res, next) => {
 
 
 app.use('/api/stream', streamRoutes)
+app.use('/api/getAll', getAllRoutes)
 
 app.get('/', (req, res) => res.send('Hello World!'))
 app.listen(PORT, () => console.log(`Server ovajje pokrenut na http://localhost:${PORT}`))
