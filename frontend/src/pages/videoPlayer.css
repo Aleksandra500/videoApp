@@ -21,12 +21,13 @@
 }
 
 .video-player {
-  flex-grow: 1;
-  max-width: 900px;
-  min-width: 800px;
+  width: 1000px;       /* fiksna širina */
+  height: 600px;      /* fiksna visina (16:9 odnos) */
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  background: black; /* da se vidi prostor playera */
+  background: black;
+  object-fit: contain; /* proporcionalno skaliranje video sadržaja unutar playera */
+  flex-shrink: 0;      /* ne dozvoli da se smanjuje */
 }
 
 .all-videos {
