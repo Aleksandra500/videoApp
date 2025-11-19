@@ -1,41 +1,135 @@
+/* ================= Video player container ================= */
 .video-container {
   height: 100vh;
-  background-color: #a3a1a1;
+  background-color: #121212;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 10px;
+  color: #fff;
 }
 
+/* Naslov aplikacije */
 .video-title {
-  color: black;
-  margin-bottom: 3rem;
+  color: #ff5722;
+  margin-bottom: 1.5rem;
   text-align: center;
+  font-size: 1.8rem;
+  text-shadow: 0 0 5px #ff5722;
 }
 
+/* Player + sidebar container */
 .video {
   display: flex;
-  justify-content: center; /* centriraj video i listu horizontalno */
-  align-items: flex-start; /* poravnaj po vrhu */
-  gap: 20px;
-  flex: 1; /* da zauzme sav preostali prostor */
+  justify-content: flex-start; /* sidebar pored videa */
+  align-items: center; /* CENTRIRAJ VERTIKALNO */
+  gap: 5px; /* razmak između playera i sidebar-a */
+  flex: 1;
 }
 
+/* Video player */
 .video-player {
-  width: 1000px;       /* fiksna širina */
-  height: 600px;      /* fiksna visina (16:9 odnos) */
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 600px;      /* fiksna širina */
+  height: 360px;     /* fiksna visina (16:9) */
+  max-width: 100%;   /* da ne prelazi container */
+  max-height: 100%;  /* da ne prelazi container */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
   background: black;
-  object-fit: contain; /* proporcionalno skaliranje video sadržaja unutar playera */
-  flex-shrink: 0;      /* ne dozvoli da se smanjuje */
+  object-fit: contain; /* uvek proporcionalno unutar playera */
+  flex-shrink: 0;     /* da se ne smanjuje */
 }
 
-.all-videos {
-  width: 30%;
-  max-width: 300px;
-  overflow-y: auto;
-  height:auto
-  /* border-radius: 8px;
-  padding: 10px;
-  box-sizing: border-box; */
+/* ================= Sidebar sa videima ================= */
+.cards-container {
+  width: 25%;
+  max-width: 200px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 5px;
+  border-right: 1px solid #444;
+  background-color: #1e1e1e;
+  border-radius: 6px;
+}
+
+/* Scrollbar */
+.cards-container::-webkit-scrollbar {
+  width: 6px;
+}
+.cards-container::-webkit-scrollbar-thumb {
+  background-color: #ff5722;
+  border-radius: 10px;
+}
+.cards-container::-webkit-scrollbar-track {
+  background-color: #121212;
+}
+
+/* Pojedinačna kartica */
+.video-map {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: #2c2c2c;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.video-map:hover {
+  transform: scale(1.02);
+  box-shadow: 0 3px 8px rgba(255, 87, 34, 0.5);
+}
+
+/* Thumbnail slike */
+.img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Tekst na kartici */
+.video-map h2 {
+  font-size: 14px;
+  color: #fff;
+  margin: 0;
+}
+
+/* Responsive za ekrane < 768px */
+@media (max-width: 768px) {
+  .video {
+    flex-direction: row; /* sidebar pored videa */
+    align-items: flex-start;
+    gap: 5px;
+  }
+    .video-player {
+    width: 90%;   /* zauzima veći deo ekrana */
+    height: 200px;
+    object-fit: contain;
+  }
+  .cards-container {
+    width: 30%; /* manja širina sidebar-a */
+    max-width: 120px;
+    height: auto;
+    flex-direction: column; /* vertikalno liste videa */
+    overflow-y: auto; /* vertikalni scroll */
+    border-right: 1px solid #444;
+    border-top: none;
+    margin-top: 0;
+  }
+  .video-map {
+    flex-direction: column;
+    align-items: center;
+    padding: 3px;
+    min-width: 70px;
+  }
+  .video-map h2 {
+    font-size: 12px;
+    text-align: center;
+  }
+  .img {
+    width: 35px;
+    height: 35px;
+  }
 }

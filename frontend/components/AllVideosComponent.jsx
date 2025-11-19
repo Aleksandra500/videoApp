@@ -12,12 +12,17 @@ function AllVideosComponent({ onSelect }) {
     const fetchVideo = async () => {
       setLoader(true);
       try {
-        const res = await getAllVideos();
+        const videoList = await getAllVideos(); // OVO MORA BITI ARRAY
 
-        if (res.status === 200 && Array.isArray(res.data.result)) {
-          setVideos(res.data.result);
-          if (res.data.result.length > 0 && onSelect) {
-            onSelect(res.data.result[0].id);
+        console.log("Video list:", videoList);
+
+        if (Array.isArray(videoList) && videoList.length > 0) {
+          setVideos(videoList);
+
+          // automatski izaberi prvi video
+          if (onSelect) {
+            const fileName = videoList[0].filepath.split('/')[1];
+            onSelect(fileName);
           }
         } else {
           console.log('Trenutno nemate video listu za prikazivanje');
@@ -30,16 +35,22 @@ function AllVideosComponent({ onSelect }) {
     };
 
     fetchVideo();
-  }, [onSelect]);
+  }, []);
 
   return (
-    <div className='container'>
+    <div className='all-videos-container'>
       {loader && (
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 20 }}>
           <FiLoader size={32} className="spinner" />
         </div>
       )}
-      <CardComponent videos={videos} onSelect={onSelect} />
+      <CardComponent
+  videos={videos}
+  onSelect={(video) => {
+    const fileName = video.filepath.split('/')[1];
+    onSelect(fileName); // ovo je tvoj VideoPlayer setSelectedVideo
+  }}
+/>
     </div>
   );
 }

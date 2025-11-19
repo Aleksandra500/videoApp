@@ -9,7 +9,7 @@ function CardComponent({ videos, onSelect }) {
 					<div
 						key={video.id}
 						className='video-map'
-						onClick={() => onSelect(video.id)}>
+						onClick={() => onSelect(video)}>
 						<img
 							src='../public/Video-Player-Icon-Transparent-PNG.png'
 							className='img'
