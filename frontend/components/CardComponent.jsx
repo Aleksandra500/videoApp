@@ -11,8 +11,9 @@ function CardComponent({ videos, onSelect }) {
 						className='video-map'
 						onClick={() => onSelect(video)}>
 						<img
-							src='../public/Video-Player-Icon-Transparent-PNG.png'
+							src='/Video-Player-Icon-Transparent-PNG.png'
 							className='img'
+							alt='video Icon'
 						/>
 						<div>
 							<h2>{video.title}</h2>

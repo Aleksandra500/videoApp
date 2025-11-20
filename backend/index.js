@@ -1,70 +1,62 @@
-// const express = require('express')
-// const cors = require('cors')
-// const streamRoutes = require('./routes/streamRoutes')
-// const getAllRoutes = require('./routes/getAllRoutes')
-// const db = require('./db');
-// require('dotenv').config();
-
-
-// const app = express()
-// const PORT = process.env.NODE_PORT || 8100
-// const HOST = process.env.IP || '::';
-
-// app.use(cors())
-// app.use(express.json())
-
-// app.use((req, res, next) => {
-//   console.log(`Zahtev pristigao: ${req.method} ${req.url}`);
-//   next();
-// });
-
-
-// app.use('/api/stream', streamRoutes)
-// app.use('/api/getAll', getAllRoutes)
-
-// app.get('/', (req, res) => res.send('Hello World!'))
-// app.listen(PORT, HOST, () => {
-//   console.log(`Server pokrenut na portu ${PORT}`);
-// });
-
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
 const streamRoutes = require('./routes/streamRoutes');
 const getAllRoutes = require('./routes/getAllRoutes');
-const db = require('./db'); // tvoj konektor ka MySQL
 
 const app = express();
 
-// CORS podešavanje (ako imaš frontend na Vercel-u ili lokalno)
+// --- CORS ---
 const allowedOrigins = [
-  'http://localhost:5173', // lokalni frontend
-  'https://tvoj-vercel-frontend.vercel.app', // frontend na Vercel
-  'https://aleksandra-videoapp.vercel.app' // eventualno drugi domen
+  'http://localhost:5173',
+  'https://video-app-pdrb.vercel.app',
+  'https://video-app-pdrb-git-main-aleksandras-projects-79a46c16.vercel.app'
 ];
 
-app.use(cors({
-  origin: function(origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-}));
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
 
+  if (!origin || allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin || '*');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+
+    if (req.method === 'OPTIONS') {
+      return res.sendStatus(200);
+    }
+
+    next();
+  } else {
+    res.status(403).send('Blocked by CORS');
+  }
+});
+
+// JSON parser
 app.use(express.json());
 
-// Logger za sve zahteve
+// --- LOGOVI ---
 app.use((req, res, next) => {
-  console.log(`Zahtev pristigao: ${req.method} ${req.url}`);
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
 });
 
-// REST API rute
+// --- ROUTES ---
 app.use('/api/stream', streamRoutes);
 app.use('/api/getAll', getAllRoutes);
 
-// Test ruta
-app.get('/', (req, res) => res.send('Hello World!'));
+// Root
+app.get('/', (req, res) => res.send('Backend radi!'));
+
+// --- GLOBAL ERROR HANDLER ---
+app.use((err, req, res, next) => {
+  console.error('GLOBAL ERROR:', err);
+  res.status(500).json({ message: 'Server error' });
+});
+
+// Start
+const PORT = process.env.NODE_PORT || 8100;
+const HOST = process.env.IP || '::';
+
+app.listen(PORT, HOST, () => {
+  console.log(`Server running on http://${HOST}:${PORT}`);
+});
