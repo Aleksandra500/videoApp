@@ -13,7 +13,7 @@ function VideoPlayer() {
         <div>
           {selectedVideo ? (
             <video key={selectedVideo} className='video-player' controls autoPlay>
-              <source src={`http://localhost:5000/api/stream/${selectedVideo}`} type="video/mp4" />
+              <source src={`https://aleksandra-videoapp.alwaysdata.net/api/stream/${selectedVideo}`} type="video/mp4" />
               Your browser does not support the video tag
             </video>
           ) : (

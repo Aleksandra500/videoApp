@@ -1,133 +1,129 @@
 /* ================= Video player container ================= */
 .video-container {
-  height: 100vh;
+  min-height: 100vh;
   background-color: #121212;
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 20px;
   color: #fff;
+
+  /* CENTRIRANJE I BOLJI DESKTOP */
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-/* Naslov aplikacije */
+/* Naslov */
 .video-title {
   color: #ff5722;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   text-shadow: 0 0 5px #ff5722;
 }
 
-/* Player + sidebar container */
+/* Player + sidebar */
 .video {
   display: flex;
-  justify-content: flex-start; /* sidebar pored videa */
-  align-items: center; /* CENTRIRAJ VERTIKALNO */
-  gap: 5px; /* razmak između playera i sidebar-a */
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px; /* veći razmak */
   flex: 1;
+
+  padding: 10px;
 }
 
-/* Video player */
+/* ================= PLAYER ================= */
 .video-player {
-  width: 600px;      /* fiksna širina */
-  height: 360px;     /* fiksna visina (16:9) */
-  max-width: 100%;   /* da ne prelazi container */
-  max-height: 100%;  /* da ne prelazi container */
-  border-radius: 8px;
+  width: 900px;           /* lepša širina */
+  height: 506px;          /* 16:9 */
+  max-width: 100%;
+  border-radius: 10px;
   box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
   background: black;
-  object-fit: contain; /* uvek proporcionalno unutar playera */
-  flex-shrink: 0;     /* da se ne smanjuje */
+  object-fit: contain;
 }
 
-/* ================= Sidebar sa videima ================= */
+/* ================= SIDEBAR ================= */
 .cards-container {
-  width: 25%;
-  max-width: 200px;
-  height: 100%;
+  width: 280px;            /* šire na desktopu */
+  max-height: 100vh;
+  overflow-y: auto;
+
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 5px;
-  border-right: 1px solid #444;
+  gap: 8px;
+
+  padding: 10px;
+  border-left: 1px solid #444;
   background-color: #1e1e1e;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
-/* Scrollbar */
-.cards-container::-webkit-scrollbar {
-  width: 6px;
-}
-.cards-container::-webkit-scrollbar-thumb {
-  background-color: #ff5722;
-  border-radius: 10px;
-}
-.cards-container::-webkit-scrollbar-track {
-  background-color: #121212;
-}
-
-/* Pojedinačna kartica */
+/* Kartice u sidebaru */
 .video-map {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px;
-  border-radius: 4px;
+  gap: 10px;
+  padding: 6px;
+  border-radius: 6px;
   background-color: #2c2c2c;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: 0.2s ease;
 }
 .video-map:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
   box-shadow: 0 3px 8px rgba(255, 87, 34, 0.5);
 }
 
-/* Thumbnail slike */
 .img {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
   border-radius: 4px;
 }
 
-/* Tekst na kartici */
 .video-map h2 {
-  font-size: 14px;
-  color: #fff;
+  font-size: 16px;
   margin: 0;
 }
 
-/* Responsive za ekrane < 768px */
+/* ========== MOBILE (ostavljaš kao što si imala) ========== */
 @media (max-width: 768px) {
   .video {
-    flex-direction: row; /* sidebar pored videa */
+    flex-direction: row;
     align-items: flex-start;
     gap: 5px;
   }
-    .video-player {
-    width: 90%;   /* zauzima veći deo ekrana */
+
+  .video-player {
+    width: 90%;
     height: 200px;
     object-fit: contain;
   }
+
   .cards-container {
-    width: 30%; /* manja širina sidebar-a */
+    width: 30%;
     max-width: 120px;
     height: auto;
-    flex-direction: column; /* vertikalno liste videa */
-    overflow-y: auto; /* vertikalni scroll */
+    flex-direction: column;
+    overflow-y: auto;
     border-right: 1px solid #444;
     border-top: none;
     margin-top: 0;
   }
+
   .video-map {
     flex-direction: column;
     align-items: center;
     padding: 3px;
     min-width: 70px;
   }
+
   .video-map h2 {
     font-size: 12px;
     text-align: center;
   }
+
   .img {
     width: 35px;
     height: 35px;
